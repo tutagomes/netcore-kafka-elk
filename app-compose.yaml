@@ -1,0 +1,26 @@
+version: '3'
+services:
+  observador:
+    image: mcr.microsoft.com/dotnet/sdk:5.0
+    networks:
+      - broker-kafka
+    ports:
+      - 5000:5000
+    entrypoint: dotnet watch run
+    working_dir: /app
+    volumes:
+      - ./Observador:/app
+  iniciador:
+    image: mcr.microsoft.com/dotnet/sdk:5.0
+    networks:
+      - broker-kafka
+    ports:
+      - 5001:5001
+    entrypoint: dotnet watch run
+    working_dir: /app
+    volumes:
+      - ./Iniciador:/app
+
+networks: 
+  broker-kafka:
+    driver: bridge  
